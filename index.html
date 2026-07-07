@@ -1,19 +1,196 @@
 <!DOCTYPE html>
-
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ayfudi - Tudo pra matar sua fome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #3e3e3e;
+        }
+
+        /* Barra de Navegação */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ea1d2c;
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: #656565;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #ea1d2c;
+        }
+
+        /* Seção Principal (Hero) */
+        .hero {
+            background-color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1f1f1f;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #717171;
+            margin-bottom: 40px;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px 0 0 8px;
+            outline: none;
+        }
+
+        .search-container button {
+            background-color: #ea1d2c;
+            color: white;
+            border: none;
+            padding: 0 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-container button:hover {
+            background-color: #c41824;
+        }
+
+        /* Categorias */
+        .categories {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .categories h2 {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .grid-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background-color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        .category-card p {
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-        <header>
-            <h1> AYFUDY</h1>
-            <p> Site do balacobaco</p>
-        </header>
-        <main>
-            <h2> Oque sua fome pede?</h2>
-            <p>CUMIDA</p>
-        </main>
+
+    <header>
+        <a href="#" class="logo">ayfudi</a>
+        <nav>
+            <a href="#">Entrar</a>
+            <a href="#">Parceiros</a>
+            <a href="#">Ajuda</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Fome de quê?</h1>
+        <p>Descubra os melhores restaurantes e mercados perto de você.</p>
+        <div class="search-container">
+            <input type="text" placeholder="Digite seu endereço de entrega...">
+            <button>Buscar</button>
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2>Categorias em destaque</h2>
+        <div class="grid-categories">
+            
+            <div class="category-card">
+                <img src="https://via.placeholder.com/80?text=Burguer" alt="Hambúrguer">
+                <p>Lanches</p>
+            </div>
+
+            <div class="category-card">
+                <img src="https://via.placeholder.com/80?text=Pizza" alt="Pizza">
+                <p>Pizza</p>
+            </div>
+
+            <div class="category-card">
+                <img src="https://via.placeholder.com/80?text=Japa" alt="Comida Japonesa">
+                <p>Japonesa</p>
+            </div>
+
+            <div class="category-card">
+                <img src="https://via.placeholder.com/80?text=Doce" alt="Doces e Bolos">
+                <p>Doces & Bolos</p>
+            </div>
+
+            <div class="category-card">
+                <img src="https://via.placeholder.com/80?text=Mercado" alt="Mercado">
+                <p>Mercado</p>
+            </div>
+
+        </div>
+    </section>
+
 </body>
 </html>

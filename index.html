@@ -132,11 +132,20 @@
             width: 80px;
             height: 80px;
             margin-bottom: 15px;
-            object-fit: contain;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .category-card p {
             font-weight: 600;
+        }
+
+        .notice-message {
+            margin-top: 15px;
+            color: #ea1d2c;
+            font-weight: bold;
+            font-size: 1rem;
+            display: none;
         }
     </style>
 </head>
@@ -145,9 +154,9 @@
     <header>
         <a href="#" class="logo">ayfudi</a>
         <nav>
-            <a href="#">Entrar</a>
-            <a href="#">Parceiros</a>
-            <a href="#">Ajuda</a>
+            <a href="#" class="action-btn">Entrar</a>
+            <a href="#" class="action-btn">Parceiros</a>
+            <a href="#" class="action-btn">Ajuda</a>
         </nav>
     </header>
 
@@ -156,41 +165,57 @@
         <p>Descubra os melhores restaurantes e mercados perto de você.</p>
         <div class="search-container">
             <input type="text" placeholder="O que mata sua fome?">
-            <button>Buscar</button>
+            <button class="action-btn">Buscar</button>
         </div>
+        <p class="notice-message" id="hero-notice">Desculpe, não existe nenhum item catalogado para a venda no momento.</p>
     </section>
 
     <section class="categories">
         <h2>Categorias em destaque</h2>
         <div class="grid-categories">
             
-            <div class="category-card">
-                <img src="https://via.placeholder.com/80?text=Burguer" alt="Hambúrguer">
+            <div class="category-card action-btn">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/16455063587200396201_0" alt="Hambúrguer">
                 <p>Lanches</p>
             </div>
 
-            <div class="category-card">
-                <img src="https://via.placeholder.com/80?text=Pizza" alt="Pizza">
+            <div class="category-card action-btn">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/3231507428244231941_0" alt="Pizza">
                 <p>Pizza</p>
             </div>
 
-            <div class="category-card">
-                <img src="https://via.placeholder.com/80?text=Japa" alt="Comida Japonesa">
+            <div class="category-card action-btn">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/15052579116594235887_0" alt="Comida Japonesa">
                 <p>Japonesa</p>
             </div>
 
-            <div class="category-card">
-                <img src="https://via.placeholder.com/80?text=Doce" alt="Doces e Bolos">
+            <div class="category-card action-btn">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/5631297769458255842_0" alt="Doces e Bolos">
                 <p>Doces & Bolos</p>
             </div>
 
-            <div class="category-card">
-                <img src="https://via.placeholder.com/80?text=Mercado" alt="Mercado">
+            <div class="category-card action-btn">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/261381255774486392_0" alt="Mercado">
                 <p>Mercado</p>
             </div>
 
         </div>
+        <p class="notice-message" id="category-notice" style="text-align: center; margin-top: 30px;">Desculpe, não existe nenhum item catalogado para a venda no momento.</p>
     </section>
+
+    <script>
+        function showNotice(event) {
+            event.preventDefault();
+            
+            document.getElementById('hero-notice').style.display = 'block';
+            document.getElementById('category-notice').style.display = 'block';
+        }
+
+        const actionButtons = document.querySelectorAll('.action-btn');
+        actionButtons.forEach(btn => {
+            btn.addEventListener('click', showNotice);
+        });
+    </script>
 
 </body>
 </html>

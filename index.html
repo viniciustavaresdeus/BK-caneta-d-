@@ -3,63 +3,97 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Ayfudi - Tela inicial</title>
+ <title>Ayfudi - Delivery</title>
  <style>
+ :root {
+ --bg-body: #f7f7f7;
+ --bg-card: #ffffff;
+ --text-main: #3e3e3e;
+ --text-title: #1f1f1f;
+ --text-sub: #717171;
+ --primary: #ea1d2c;
+ --primary-hover: #c41824;
+ --border-color: #dcdcdc;
+ --shadow: rgba(0, 0, 0, 0.05);
+ }
+
+ body.dark-mode {
+ --bg-body: #121212;
+ --bg-card: #1e1e1e;
+ --text-main: #e0e0e0;
+ --text-title: #ffffff;
+ --text-sub: #a0a0a0;
+ --border-color: #333333;
+ --shadow: rgba(0, 0, 0, 0.5);
+ }
+
  * {
  margin: 0;
  padding: 0;
  box-sizing: border-box;
  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ transition: background-color 0.3s, color 0.3s;
  }
 
  body {
- background-color: #f7f7f7;
- color: #3e3e3e;
+ background-color: var(--bg-body);
+ color: var(--text-main);
  }
 
  header {
- background-color: #ffffff;
- box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+ background-color: var(--bg-card);
+ box-shadow: 0 2px 4px var(--shadow);
  padding: 20px 50px;
  display: flex;
  justify-content: space-between;
  align-items: center;
+ position: sticky;
+ top: 0;
+ z-index: 100;
  }
 
  .logo {
- color: #ea1d2c;
+ color: var(--primary);
  font-size: 2rem;
  font-weight: bold;
  text-decoration: none;
  }
 
  nav a {
- color: #656565;
+ color: var(--text-sub);
  text-decoration: none;
  margin-left: 20px;
- font-weight: 500;
- font-size: 1.2rem;
+ font-size: 1.4rem;
+ cursor: pointer;
  }
 
- nav a:hover {
- color: #ea1d2c;
+ nav a:hover, nav a.active {
+ color: var(--primary);
+ }
+
+ .view-section {
+ display: none;
+ }
+
+ .view-section.active {
+ display: block;
  }
 
  .hero {
- background-color: #fff;
+ background-color: var(--bg-card);
  text-align: center;
- padding: 100px 20px;
+ padding: 80px 20px;
  }
 
  .hero h1 {
  font-size: 3rem;
  margin-bottom: 20px;
- color: #1f1f1f;
+ color: var(--text-title);
  }
 
  .hero p {
  font-size: 1.2rem;
- color: #717171;
+ color: var(--text-sub);
  margin-bottom: 40px;
  }
 
@@ -74,13 +108,15 @@
  width: 100%;
  padding: 15px 20px;
  font-size: 1rem;
- border: 1px solid #dcdcdc;
+ border: 1px solid var(--border-color);
+ background-color: var(--bg-card);
+ color: var(--text-main);
  border-radius: 8px 0 0 8px;
  outline: none;
  }
 
  .search-container button {
- background-color: #ea1d2c;
+ background-color: var(--primary);
  color: white;
  border: none;
  padding: 0 30px;
@@ -88,22 +124,22 @@
  font-weight: bold;
  border-radius: 0 8px 8px 0;
  cursor: pointer;
- transition: background 0.2s;
  }
 
  .search-container button:hover {
- background-color: #c41824;
+ background-color: var(--primary-hover);
  }
 
- .categories {
+ .categories, .container-page {
  max-width: 1200px;
- margin: 50px auto;
+ margin: 40px auto;
  padding: 0 20px;
  }
 
- .categories h2 {
+ .categories h2, .page-title {
  margin-bottom: 30px;
  font-size: 1.8rem;
+ color: var(--text-title);
  }
 
  .grid-categories {
@@ -113,21 +149,20 @@
  }
 
  .category-card {
- background-color: #fff;
+ background-color: var(--bg-card);
  padding: 30px 20px;
  text-align: center;
  border-radius: 12px;
- box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+ box-shadow: 0 4px 6px var(--shadow);
  cursor: pointer;
- transition: transform 0.2s, border-color 0.2s;
  border: 2px solid transparent;
  }
 
  .category-card:hover, .category-card.active {
  transform: translateY(-5px);
- border-color: #ea1d2c;
+ border-color: var(--primary);
  }
- 
+
  .category-card img {
  width: 80px;
  height: 80px;
@@ -137,6 +172,7 @@
 
  .category-card p {
  font-weight: 600;
+ color: var(--text-main);
  }
 
  .catalog-section {
@@ -146,12 +182,6 @@
  display: none;
  }
 
- .catalog-title {
- font-size: 2rem;
- margin-bottom: 20px;
- color: #1f1f1f;
- }
-
  .grid-products {
  display: grid;
  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -159,10 +189,10 @@
  }
 
  .product-card {
- background-color: #fff;
+ background-color: var(--bg-card);
  border-radius: 12px;
  padding: 20px;
- box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+ box-shadow: 0 4px 6px var(--shadow);
  display: flex;
  flex-direction: column;
  justify-content: space-between;
@@ -171,10 +201,11 @@
  .product-card h3 {
  font-size: 1.2rem;
  margin-bottom: 8px;
+ color: var(--text-title);
  }
 
  .product-card p {
- color: #717171;
+ color: var(--text-sub);
  font-size: 0.9rem;
  margin-bottom: 15px;
  }
@@ -189,38 +220,179 @@
  .product-price {
  font-size: 1.1rem;
  font-weight: bold;
- color: #ea1d2c;
+ color: var(--primary);
  }
 
- .btn-add {
- background-color: #ea1d2c;
+ .btn-add, .btn-submit {
+ background-color: var(--primary);
  color: white;
  border: none;
- padding: 8px 16px;
+ padding: 10px 20px;
  border-radius: 6px;
  font-weight: bold;
  cursor: pointer;
- transition: background 0.2s;
  }
 
- .btn-add:hover {
- background-color: #c41824;
+ .btn-add:hover, .btn-submit:hover {
+ background-color: var(--primary-hover);
+ }
+
+ .faq-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ gap: 20px;
+ margin-bottom: 40px;
+ }
+
+ .faq-card {
+ background-color: var(--bg-card);
+ padding: 25px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ }
+
+ .faq-card h3 {
+ color: var(--primary);
+ margin-bottom: 10px;
+ }
+
+ .ticket-section {
+ background-color: var(--bg-card);
+ padding: 30px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ max-width: 700px;
+ margin: 0 auto;
+ }
+
+ .form-group {
+ margin-bottom: 20px;
+ }
+
+ .form-group label {
+ display: block;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: var(--text-title);
+ }
+
+ .form-group input, .form-group textarea, .form-group select {
+ width: 100%;
+ padding: 12px;
+ border: 1px solid var(--border-color);
+ border-radius: 6px;
+ background-color: var(--bg-body);
+ color: var(--text-main);
+ outline: none;
+ }
+
+ .partners-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+ gap: 25px;
+ }
+
+ .partner-card {
+ background-color: var(--bg-card);
+ padding: 25px;
+ border-radius: 12px;
+ text-align: center;
+ box-shadow: 0 4px 6px var(--shadow);
+ border: 1px solid var(--border-color);
+ }
+
+ .partner-card img {
+ width: 100px;
+ height: 100px;
+ object-fit: contain;
+ margin-bottom: 15px;
+ border-radius: 50%;
+ background: #fff;
+ padding: 10px;
+ }
+
+ .partner-card h3 {
+ color: var(--text-title);
+ margin-bottom: 5px;
+ }
+
+ .partner-card span {
+ color: var(--text-sub);
+ font-size: 0.85rem;
+ }
+
+ .settings-card {
+ background-color: var(--bg-card);
+ padding: 30px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ max-width: 600px;
+ margin: 0 auto 30px;
+ }
+
+ .toggle-container {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+
+ .switch {
+ position: relative;
+ display: inline-block;
+ width: 50px;
+ height: 26px;
+ }
+
+ .switch input {
+ opacity: 0;
+ width: 0;
+ height: 0;
+ }
+
+ .slider {
+ position: absolute;
+ cursor: pointer;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background-color: #ccc;
+ transition: .4s;
+ border-radius: 34px;
+ }
+
+ .slider:before {
+ position: absolute;
+ content: "";
+ height: 18px;
+ width: 18px;
+ left: 4px;
+ bottom: 4px;
+ background-color: white;
+ transition: .4s;
+ border-radius: 50%;
+ }
+
+ input:checked + .slider {
+ background-color: var(--primary);
+ }
+
+ input:checked + .slider:before {
+ transform: translateX(24px);
  }
  </style>
 </head>
 <body>
 
  <header>
- <a href="#" class="logo">ayfudi</a>
+ <a href="#" class="logo" onclick="switchTab('home')">ayfudi</a>
  <nav>
- <a href="#" title="Dúvidas">🤔</a>
- <a href="#" title="Parceiros">🤝</a>
- <a href="#" title="Configurações">⚙️</a>
+ <a onclick="switchTab('help')" id="nav-help" title="Dúvidas">🤔</a>
+ <a onclick="switchTab('partners')" id="nav-partners" title="Parceiros">🤝</a>
+ <a onclick="switchTab('settings')" id="nav-settings" title="Configurações">⚙️</a>
  </nav>
  </header>
 
+ <div id="view-home" class="view-section active">
  <section class="hero">
- <h1>Oque sua fome pede?</h1>
+ <h1>O que sua fome pede?</h1>
  <p>Aqui nós não vendemos somente produtos, vendemos felicidade em cada mordida.</p>
  <div class="search-container">
  <input type="text" id="searchInput" placeholder="Busque aqui...">
@@ -231,39 +403,157 @@
  <section class="categories">
  <h2>Categorias em destaque</h2>
  <div class="grid-categories">
- 
  <div class="category-card" data-category="Lanches">
- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4t2iZRyue_QAmjcIZdM7YrVemeUcva8pFrNlOAn-S5w&s=10" alt="Hambúrguer">
- <p>Nuggets</p>
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ22dibEbsDjdcr7NC-EdoN5CWEi0SyKs5b0S6lBNZg5A&s=10" alt="Lanches">
+ <p>Lanches</p>
  </div>
-
  <div class="category-card" data-category="Pizza">
- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Hag-3ES9VY_I2e2Gq-AqBmhPmxCTucF8ydKJ_fydbA&s=10" alt="Pizza">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQrrG9zHLNZX1DLKN4ETMzL4woxvtuaKfVFExuI22piA&s=10" alt="Pizza">
  <p>Pizza</p>
  </div>
-
  <div class="category-card" data-category="Japonesa">
- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7SE12qG5_L9XkyPz38E67nkMm4QDx4daqQskvln4-aw&s=10" alt="Comida Japonesa">
- <p>Asiática</p>
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8qv5gXIn9mogX_tpv8kiXMyK6DSNu26NiDuP6nXIPLw&s=10" alt="Japonesa">
+ <p>Japonesa</p>
  </div>
-
  <div class="category-card" data-category="Sobremesas">
- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4U9U5-zDTHTdiOvj8Dh9n8Qp2_iNeQUw6oCWtOFVRPQ&s=10" alt="Sobremesas">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREFlY1uuYLlVUI5i3JqfU-eMQmuBRMtQhkOaM6HcpPZw&s=10" alt="Sobremesas">
  <p>Sobremesas</p>
  </div>
-
  <div class="category-card" data-category="Mexicana">
- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXv4kpYcc1at5CtxrnkB4PDer--kXEP1dt47u9cvXpeQ&s=10" alt="Comida mexicana">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJkOS9PzmyQ1mSvuchToGwXLyck_ZmT8WuXvpmiVhYHw&s=10" alt="Mexicana">
  <p>Mexicana</p>
  </div>
-
  </div>
  </section>
 
  <section class="catalog-section" id="catalogSection">
- <h2 class="catalog-title" id="catalogTitle">Opções disponíveis</h2>
+ <h2 class="catalog-title" id="catalogTitle" style="color: var(--text-title); margin-bottom: 20px;">Opções disponíveis</h2>
  <div class="grid-products" id="productGrid"></div>
  </section>
+ </div>
+
+ <div id="view-help" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Central de Ajuda & Como Funciona</h2>
+ 
+ <div class="faq-grid">
+ <div class="faq-card">
+ <h3>1. Escolha o que comer</h3>
+ <p>Assim como no iFood, navegue pelas categorias na página inicial ou use a barra de busca para encontrar seus pratos e restaurantes favoritos.</p>
+ </div>
+ <div class="faq-card">
+ <h3>2. Adicione ao Carrinho</h3>
+ <p>Selecione os itens desejados, confira os detalhes do pedido e clique no botão "Adicionar" para salvar no seu carrinho virtual.</p>
+ </div>
+ <div class="faq-card">
+ <h3>3. Acompanhe a Entrega</h3>
+ <p>Após confirmar o pagamento no checkout, seu pedido é enviado ao restaurante parceiro e entregue diretamente no seu endereço cadastrado.</p>
+ </div>
+ </div>
+
+ <div class="ticket-section">
+ <h2 style="color: var(--text-title); margin-bottom: 20px;">Criar Ticket de Suporte / Reportar Problema</h2>
+ <form id="ticketForm" onsubmit="enviarTicket(event)">
+ <div class="form-group">
+ <label>Nome Completo</label>
+ <input type="text" id="ticketName" required placeholder="Digite seu nome">
+ </div>
+ <div class="form-group">
+ <label>E-mail</label>
+ <input type="email" id="ticketEmail" required placeholder="seu@email.com">
+ </div>
+ <div class="form-group">
+ <label>Assunto</label>
+ <select id="ticketSubject">
+ <option>Dúvida sobre pedido</option>
+ <option>Problema com pagamento</option>
+ <option>Reportar erro no site</option>
+ <option>Sugestão ou reclamação</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Mensagem</label>
+ <textarea id="ticketMessage" rows="4" required placeholder="Descreva detalhadamente sua dúvida ou problema..."></textarea>
+ </div>
+ <button type="submit" class="btn-submit">Enviar Ticket</button>
+ </form>
+ </div>
+ </div>
+ </div>
+
+ <div id="view-partners" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Nossos Parceiros Oficiais</h2>
+ <div class="partners-grid">
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpMFDa0a-Kh8NZ7m_37i_gWYI75DCwZ_g79qvBGx4tXA&s=10" alt="Supermercado Rio Verde">
+ <h3>Supermercado Rio Verde</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA-lGE-t3J0KTjETgO1AyQ9nwsaLz7MHMYJK2ZLIhjeA&s=10" alt="Supermercado Califórnia">
+ <h3>Supermercado Califórnia</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCyW7ZDhoqOOFLo6XC7dd9Wx4rvIJ2JENf_cmx_U1qDA&s=10" alt="Supermercado Carrefour">
+ <h3>Supermercado Carrefour</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxmMuqBzIo8BxZv1hg1PBUJRGltfDbNHZi5ultbBhKuw&s=10" alt="Coca-Cola">
+ <h3>Coca-Cola</h3>
+ <span>Franquia de bebidas</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmxCuH-tObEzSxo2a_9uZWHQQHscSWjuhAYzZA7sKhrQ&s" alt="Burguer King">
+ <h3>Burguer King</h3>
+ <span>Hamburguerias</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVOKUyqtgxbvgwMu32xWesyJsz3wV7Lt8yTrVb0Cc-BQ&s=10" alt="Habibi's">
+ <h3>Habib's</h3>
+ <span>Esfihas e Pizzas</span>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div id="view-settings" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Configurações</h2>
+
+ <div class="settings-card">
+ <h3 style="color: var(--text-title); margin-bottom: 15px;">Aparência</h3>
+ <div class="toggle-container">
+ <span style="color: var(--text-main); font-weight: 500;">Modo Escuro</span>
+ <label class="switch">
+ <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)">
+ <span class="slider"></span>
+ </label>
+ </div>
+ </div>
+
+ <div class="settings-card">
+ <h3 style="color: var(--text-title); margin-bottom: 20px;">Perfil do Usuário</h3>
+ <form id="profileForm" onsubmit="salvarPerfil(event)">
+ <div class="form-group">
+ <label>Nome do Usuário</label>
+ <input type="text" id="profName" value="Cliente Ayfudi">
+ </div>
+ <div class="form-group">
+ <label>E-mail</label>
+ <input type="email" id="profEmail" value="cliente@email.com">
+ </div>
+ <div class="form-group">
+ <label>Endereço de Entrega</label>
+ <input type="text" id="profAddress" value="Rua das Flores, 123 - Centro">
+ </div>
+ <button type="submit" class="btn-submit">Salvar Perfil</button>
+ </form>
+ </div>
+ </div>
+ </div>
 
  <script>
  const catalogos = {
@@ -290,6 +580,19 @@
  { nome: 'Burrito Supremo', preco: 'R$ 34,50', desc: 'Tortilla de trigo grande recheada com feijão mexicano, carne, queijo e pico de gallo.' }
  ]
  };
+
+ function switchTab(tab) {
+ document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+ document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+
+ const targetView = document.getElementById(`view-${tab}`);
+ if (targetView) targetView.classList.add('active');
+
+ const targetNav = document.getElementById(`nav-${tab}`);
+ if (targetNav) targetNav.classList.add('active');
+
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+ }
 
  const categoryCards = document.querySelectorAll('.category-card');
  const catalogSection = document.getElementById('catalogSection');
@@ -360,6 +663,1424 @@
  searchInput.addEventListener('keypress', (e) => {
  if (e.key === 'Enter') executarBusca();
  });
+
+ function enviarTicket(e) {
+ e.preventDefault();
+ const nome = document.getElementById('ticketName').value;
+ alert(`Obrigado, ${nome}! Seu ticket de suporte foi aberto com sucesso. Entraremos em contato em breve.`);
+ document.getElementById('ticketForm').reset();
+ }
+
+ function toggleDarkMode(enabled) {
+ if (enabled) {
+ document.body.classList.add('dark-mode');
+ localStorage.setItem('theme', 'dark');
+ } else {
+ document.body.classList.remove('dark-mode');
+ localStorage.setItem('theme', 'light');
+ }
+ }
+
+ function salvarPerfil(e) {
+ e.preventDefault();
+ const nome = document.getElementById('profName').value;
+ alert(`Perfil de "${nome}" atualizado com sucesso!`);
+ }
+
+ if (localStorage.getItem('theme') === 'dark') {
+ document.getElementById('darkModeToggle').checked = true;
+ toggleDarkMode(true);
+ }
+ </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Ayfudi - Delivery</title>
+ <style>
+ :root {
+ --bg-body: #f7f7f7;
+ --bg-card: #ffffff;
+ --text-main: #3e3e3e;
+ --text-title: #1f1f1f;
+ --text-sub: #717171;
+ --primary: #ea1d2c;
+ --primary-hover: #c41824;
+ --border-color: #dcdcdc;
+ --shadow: rgba(0, 0, 0, 0.05);
+ }
+
+ body.dark-mode {
+ --bg-body: #121212;
+ --bg-card: #1e1e1e;
+ --text-main: #e0e0e0;
+ --text-title: #ffffff;
+ --text-sub: #a0a0a0;
+ --border-color: #333333;
+ --shadow: rgba(0, 0, 0, 0.5);
+ }
+
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ transition: background-color 0.3s, color 0.3s;
+ }
+
+ body {
+ background-color: var(--bg-body);
+ color: var(--text-main);
+ }
+
+ header {
+ background-color: var(--bg-card);
+ box-shadow: 0 2px 4px var(--shadow);
+ padding: 20px 50px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ position: sticky;
+ top: 0;
+ z-index: 100;
+ }
+
+ .logo {
+ color: var(--primary);
+ font-size: 2rem;
+ font-weight: bold;
+ text-decoration: none;
+ }
+
+ nav a {
+ color: var(--text-sub);
+ text-decoration: none;
+ margin-left: 20px;
+ font-size: 1.4rem;
+ cursor: pointer;
+ }
+
+ nav a:hover, nav a.active {
+ color: var(--primary);
+ }
+
+ .view-section {
+ display: none;
+ }
+
+ .view-section.active {
+ display: block;
+ }
+
+ .hero {
+ background-color: var(--bg-card);
+ text-align: center;
+ padding: 80px 20px;
+ }
+
+ .hero h1 {
+ font-size: 3rem;
+ margin-bottom: 20px;
+ color: var(--text-title);
+ }
+
+ .hero p {
+ font-size: 1.2rem;
+ color: var(--text-sub);
+ margin-bottom: 40px;
+ }
+
+ .search-container {
+ display: flex;
+ justify-content: center;
+ max-width: 600px;
+ margin: 0 auto;
+ }
+
+ .search-container input {
+ width: 100%;
+ padding: 15px 20px;
+ font-size: 1rem;
+ border: 1px solid var(--border-color);
+ background-color: var(--bg-card);
+ color: var(--text-main);
+ border-radius: 8px 0 0 8px;
+ outline: none;
+ }
+
+ .search-container button {
+ background-color: var(--primary);
+ color: white;
+ border: none;
+ padding: 0 30px;
+ font-size: 1rem;
+ font-weight: bold;
+ border-radius: 0 8px 8px 0;
+ cursor: pointer;
+ }
+
+ .search-container button:hover {
+ background-color: var(--primary-hover);
+ }
+
+ .categories, .container-page {
+ max-width: 1200px;
+ margin: 40px auto;
+ padding: 0 20px;
+ }
+
+ .categories h2, .page-title {
+ margin-bottom: 30px;
+ font-size: 1.8rem;
+ color: var(--text-title);
+ }
+
+ .grid-categories {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+ gap: 20px;
+ }
+
+ .category-card {
+ background-color: var(--bg-card);
+ padding: 30px 20px;
+ text-align: center;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ cursor: pointer;
+ border: 2px solid transparent;
+ }
+
+ .category-card:hover, .category-card.active {
+ transform: translateY(-5px);
+ border-color: var(--primary);
+ }
+
+ .category-card img {
+ width: 80px;
+ height: 80px;
+ margin-bottom: 15px;
+ object-fit: contain;
+ }
+
+ .category-card p {
+ font-weight: 600;
+ color: var(--text-main);
+ }
+
+ .catalog-section {
+ max-width: 1200px;
+ margin: 40px auto 80px;
+ padding: 0 20px;
+ display: none;
+ }
+
+ .grid-products {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+ gap: 25px;
+ }
+
+ .product-card {
+ background-color: var(--bg-card);
+ border-radius: 12px;
+ padding: 20px;
+ box-shadow: 0 4px 6px var(--shadow);
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ }
+
+ .product-card h3 {
+ font-size: 1.2rem;
+ margin-bottom: 8px;
+ color: var(--text-title);
+ }
+
+ .product-card p {
+ color: var(--text-sub);
+ font-size: 0.9rem;
+ margin-bottom: 15px;
+ }
+
+ .product-bottom {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 10px;
+ }
+
+ .product-price {
+ font-size: 1.1rem;
+ font-weight: bold;
+ color: var(--primary);
+ }
+
+ .btn-add, .btn-submit {
+ background-color: var(--primary);
+ color: white;
+ border: none;
+ padding: 10px 20px;
+ border-radius: 6px;
+ font-weight: bold;
+ cursor: pointer;
+ }
+
+ .btn-add:hover, .btn-submit:hover {
+ background-color: var(--primary-hover);
+ }
+
+ .faq-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ gap: 20px;
+ margin-bottom: 40px;
+ }
+
+ .faq-card {
+ background-color: var(--bg-card);
+ padding: 25px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ }
+
+ .faq-card h3 {
+ color: var(--primary);
+ margin-bottom: 10px;
+ }
+
+ .ticket-section {
+ background-color: var(--bg-card);
+ padding: 30px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ max-width: 700px;
+ margin: 0 auto;
+ }
+
+ .form-group {
+ margin-bottom: 20px;
+ }
+
+ .form-group label {
+ display: block;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: var(--text-title);
+ }
+
+ .form-group input, .form-group textarea, .form-group select {
+ width: 100%;
+ padding: 12px;
+ border: 1px solid var(--border-color);
+ border-radius: 6px;
+ background-color: var(--bg-body);
+ color: var(--text-main);
+ outline: none;
+ }
+
+ .partners-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+ gap: 25px;
+ }
+
+ .partner-card {
+ background-color: var(--bg-card);
+ padding: 25px;
+ border-radius: 12px;
+ text-align: center;
+ box-shadow: 0 4px 6px var(--shadow);
+ border: 1px solid var(--border-color);
+ }
+
+ .partner-card img {
+ width: 100px;
+ height: 100px;
+ object-fit: contain;
+ margin-bottom: 15px;
+ border-radius: 50%;
+ background: #fff;
+ padding: 10px;
+ }
+
+ .partner-card h3 {
+ color: var(--text-title);
+ margin-bottom: 5px;
+ }
+
+ .partner-card span {
+ color: var(--text-sub);
+ font-size: 0.85rem;
+ }
+
+ .settings-card {
+ background-color: var(--bg-card);
+ padding: 30px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ max-width: 600px;
+ margin: 0 auto 30px;
+ }
+
+ .toggle-container {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+
+ .switch {
+ position: relative;
+ display: inline-block;
+ width: 50px;
+ height: 26px;
+ }
+
+ .switch input {
+ opacity: 0;
+ width: 0;
+ height: 0;
+ }
+
+ .slider {
+ position: absolute;
+ cursor: pointer;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background-color: #ccc;
+ transition: .4s;
+ border-radius: 34px;
+ }
+
+ .slider:before {
+ position: absolute;
+ content: "";
+ height: 18px;
+ width: 18px;
+ left: 4px;
+ bottom: 4px;
+ background-color: white;
+ transition: .4s;
+ border-radius: 50%;
+ }
+
+ input:checked + .slider {
+ background-color: var(--primary);
+ }
+
+ input:checked + .slider:before {
+ transform: translateX(24px);
+ }
+ </style>
+</head>
+<body>
+
+ <header>
+ <a href="#" class="logo" onclick="switchTab('home')">ayfudi</a>
+ <nav>
+ <a onclick="switchTab('help')" id="nav-help" title="Dúvidas">🤔</a>
+ <a onclick="switchTab('partners')" id="nav-partners" title="Parceiros">🤝</a>
+ <a onclick="switchTab('settings')" id="nav-settings" title="Configurações">⚙️</a>
+ </nav>
+ </header>
+
+ <div id="view-home" class="view-section active">
+ <section class="hero">
+ <h1>O que sua fome pede?</h1>
+ <p>Aqui nós não vendemos somente produtos, vendemos felicidade em cada mordida.</p>
+ <div class="search-container">
+ <input type="text" id="searchInput" placeholder="Busque aqui...">
+ <button id="searchBtn">Buscar</button>
+ </div>
+ </section>
+
+ <section class="categories">
+ <h2>Categorias em destaque</h2>
+ <div class="grid-categories">
+ <div class="category-card" data-category="Lanches">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ22dibEbsDjdcr7NC-EdoN5CWEi0SyKs5b0S6lBNZg5A&s=10" alt="Lanches">
+ <p>Lanches</p>
+ </div>
+ <div class="category-card" data-category="Pizza">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQrrG9zHLNZX1DLKN4ETMzL4woxvtuaKfVFExuI22piA&s=10" alt="Pizza">
+ <p>Pizza</p>
+ </div>
+ <div class="category-card" data-category="Japonesa">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8qv5gXIn9mogX_tpv8kiXMyK6DSNu26NiDuP6nXIPLw&s=10" alt="Japonesa">
+ <p>Japonesa</p>
+ </div>
+ <div class="category-card" data-category="Sobremesas">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREFlY1uuYLlVUI5i3JqfU-eMQmuBRMtQhkOaM6HcpPZw&s=10" alt="Sobremesas">
+ <p>Sobremesas</p>
+ </div>
+ <div class="category-card" data-category="Mexicana">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJkOS9PzmyQ1mSvuchToGwXLyck_ZmT8WuXvpmiVhYHw&s=10" alt="Mexicana">
+ <p>Mexicana</p>
+ </div>
+ </div>
+ </section>
+
+ <section class="catalog-section" id="catalogSection">
+ <h2 class="catalog-title" id="catalogTitle" style="color: var(--text-title); margin-bottom: 20px;">Opções disponíveis</h2>
+ <div class="grid-products" id="productGrid"></div>
+ </section>
+ </div>
+
+ <div id="view-help" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Central de Ajuda & Como Funciona</h2>
+ 
+ <div class="faq-grid">
+ <div class="faq-card">
+ <h3>1. Escolha o que comer</h3>
+ <p>Assim como no iFood, navegue pelas categorias na página inicial ou use a barra de busca para encontrar seus pratos e restaurantes favoritos.</p>
+ </div>
+ <div class="faq-card">
+ <h3>2. Adicione ao Carrinho</h3>
+ <p>Selecione os itens desejados, confira os detalhes do pedido e clique no botão "Adicionar" para salvar no seu carrinho virtual.</p>
+ </div>
+ <div class="faq-card">
+ <h3>3. Acompanhe a Entrega</h3>
+ <p>Após confirmar o pagamento no checkout, seu pedido é enviado ao restaurante parceiro e entregue diretamente no seu endereço cadastrado.</p>
+ </div>
+ </div>
+
+ <div class="ticket-section">
+ <h2 style="color: var(--text-title); margin-bottom: 20px;">Criar Ticket de Suporte / Reportar Problema</h2>
+ <form id="ticketForm" onsubmit="enviarTicket(event)">
+ <div class="form-group">
+ <label>Nome Completo</label>
+ <input type="text" id="ticketName" required placeholder="Digite seu nome">
+ </div>
+ <div class="form-group">
+ <label>E-mail</label>
+ <input type="email" id="ticketEmail" required placeholder="seu@email.com">
+ </div>
+ <div class="form-group">
+ <label>Assunto</label>
+ <select id="ticketSubject">
+ <option>Dúvida sobre pedido</option>
+ <option>Problema com pagamento</option>
+ <option>Reportar erro no site</option>
+ <option>Sugestão ou reclamação</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Mensagem</label>
+ <textarea id="ticketMessage" rows="4" required placeholder="Descreva detalhadamente sua dúvida ou problema..."></textarea>
+ </div>
+ <button type="submit" class="btn-submit">Enviar Ticket</button>
+ </form>
+ </div>
+ </div>
+ </div>
+
+ <div id="view-partners" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Nossos Parceiros Oficiais</h2>
+ <div class="partners-grid">
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpMFDa0a-Kh8NZ7m_37i_gWYI75DCwZ_g79qvBGx4tXA&s=10" alt="Supermercado Rio Verde">
+ <h3>Supermercado Rio Verde</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA-lGE-t3J0KTjETgO1AyQ9nwsaLz7MHMYJK2ZLIhjeA&s=10" alt="Supermercado Califórnia">
+ <h3>Supermercado Califórnia</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCyW7ZDhoqOOFLo6XC7dd9Wx4rvIJ2JENf_cmx_U1qDA&s=10" alt="Supermercado Carrefour">
+ <h3>Supermercado Carrefour</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxmMuqBzIo8BxZv1hg1PBUJRGltfDbNHZi5ultbBhKuw&s=10" alt="Coca-Cola">
+ <h3>Coca-Cola</h3>
+ <span>Franquia de bebidas</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmxCuH-tObEzSxo2a_9uZWHQQHscSWjuhAYzZA7sKhrQ&s" alt="Burguer King">
+ <h3>Burguer King</h3>
+ <span>Hamburguerias</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVOKUyqtgxbvgwMu32xWesyJsz3wV7Lt8yTrVb0Cc-BQ&s=10" alt="Habibi's">
+ <h3>Habib's</h3>
+ <span>Esfihas e Pizzas</span>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div id="view-settings" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Configurações</h2>
+
+ <div class="settings-card">
+ <h3 style="color: var(--text-title); margin-bottom: 15px;">Aparência</h3>
+ <div class="toggle-container">
+ <span style="color: var(--text-main); font-weight: 500;">Modo Escuro</span>
+ <label class="switch">
+ <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)">
+ <span class="slider"></span>
+ </label>
+ </div>
+ </div>
+
+ <div class="settings-card">
+ <h3 style="color: var(--text-title); margin-bottom: 20px;">Perfil do Usuário</h3>
+ <form id="profileForm" onsubmit="salvarPerfil(event)">
+ <div class="form-group">
+ <label>Nome do Usuário</label>
+ <input type="text" id="profName" value="Cliente Ayfudi">
+ </div>
+ <div class="form-group">
+ <label>E-mail</label>
+ <input type="email" id="profEmail" value="cliente@email.com">
+ </div>
+ <div class="form-group">
+ <label>Endereço de Entrega</label>
+ <input type="text" id="profAddress" value="Rua das Flores, 123 - Centro">
+ </div>
+ <button type="submit" class="btn-submit">Salvar Perfil</button>
+ </form>
+ </div>
+ </div>
+ </div>
+
+ <script>
+ const catalogos = {
+ 'Lanches': [
+ { nome: 'X-Burguer Clássico', preco: 'R$ 24,90', desc: 'Pão brioche, carne artesanal 180g, queijo cheddar e molho especial.' },
+ { nome: 'Smash Bacon', preco: 'R$ 28,50', desc: 'Duas carnes smash 90g, queijo prato, bacon crocante e maionese da casa.' },
+ { nome: 'Chicken Crispy', preco: 'R$ 22,00', desc: 'Frango empanado super crocante, alface, tomate e molho honey mustard.' }
+ ],
+ 'Pizza': [
+ { nome: 'Pizza Calabresa', preco: 'R$ 44,90', desc: 'Molho de tomate artesanal, muçarela, calabresa fatiada e cebola.' },
+ { nome: 'Pizza 4 Queijos', preco: 'R$ 49,90', desc: 'Muçarela, gorgonzola, provolone e catupiry original.' },
+ { nome: 'Pizza Frango com Catupiry', preco: 'R$ 46,00', desc: 'Frango desfiado temperado e coberto com catupiry.' }
+ ],
+ 'Japonesa': [
+ { nome: 'Combo Sushi (20 Peças)', preco: 'R$ 64,90', desc: '10 Hossomakis, 5 Niguiris de Salmão e 5 Sashimis frescos.' },
+ { nome: 'Temaki Salmão Completo', preco: 'R$ 29,90', desc: 'Cone de alga recheado com salmão, cream cheese e cebolinha.' }
+ ],
+ 'Sobremesas': [
+ { nome: 'Grand Gateau', preco: 'R$ 22,90', desc: 'Bolo quente de chocolate com picolé de baunilha e calda de brigadeiro.' },
+ { nome: 'Churros de Doce de Leite', preco: 'R$ 16,00', desc: '6 mini churros crocantes recheados com doce de leite caseiro.' }
+ ],
+ 'Mexicana': [
+ { nome: 'Tacos de Carne (3 un)', preco: 'R$ 31,90', desc: 'Tortillas de milho, carne moída temperada, queijo e guacamole.' },
+ { nome: 'Burrito Supremo', preco: 'R$ 34,50', desc: 'Tortilla de trigo grande recheada com feijão mexicano, carne, queijo e pico de gallo.' }
+ ]
+ };
+
+ function switchTab(tab) {
+ document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+ document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+
+ const targetView = document.getElementById(`view-${tab}`);
+ if (targetView) targetView.classList.add('active');
+
+ const targetNav = document.getElementById(`nav-${tab}`);
+ if (targetNav) targetNav.classList.add('active');
+
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+ }
+
+ const categoryCards = document.querySelectorAll('.category-card');
+ const catalogSection = document.getElementById('catalogSection');
+ const catalogTitle = document.getElementById('catalogTitle');
+ const productGrid = document.getElementById('productGrid');
+ const searchInput = document.getElementById('searchInput');
+ const searchBtn = document.getElementById('searchBtn');
+
+ function showProducts(categoria) {
+ const produtos = catalogos[categoria];
+ if (!produtos) return;
+
+ categoryCards.forEach(card => card.classList.remove('active'));
+ const activeCard = Array.from(categoryCards).find(c => c.dataset.category === categoria);
+ if (activeCard) activeCard.classList.add('active');
+
+ catalogTitle.innerText = `Cardápio: ${categoria}`;
+ productGrid.innerHTML = '';
+
+ produtos.forEach(item => {
+ const card = document.createElement('div');
+ card.className = 'product-card';
+ card.innerHTML = `
+ <div>
+ <h3>${item.nome}</h3>
+ <p>${item.desc}</p>
+ </div>
+ <div class="product-bottom">
+ <span class="product-price">${item.preco}</span>
+ <button class="btn-add" onclick="adicionarAoCarrinho('${item.nome}')">Adicionar</button>
+ </div>
+ `;
+ productGrid.appendChild(card);
+ });
+
+ catalogSection.style.display = 'block';
+ catalogSection.scrollIntoView({ behavior: 'smooth' });
+ }
+
+ categoryCards.forEach(card => {
+ card.addEventListener('click', () => {
+ const categoria = card.getAttribute('data-category');
+ showProducts(categoria);
+ });
+ });
+
+ function adicionarAoCarrinho(nomeProduto) {
+ alert(`"${nomeProduto}" foi adicionado ao seu pedido!`);
+ }
+
+ function executarBusca() {
+ const termo = searchInput.value.trim().toLowerCase();
+ if (!termo) {
+ alert('Por favor, digite algo para buscar.');
+ return;
+ }
+
+ const categoriaEncontrada = Object.keys(catalogos).find(cat => cat.toLowerCase().includes(termo));
+
+ if (categoriaEncontrada) {
+ showProducts(categoriaEncontrada);
+ } else {
+ alert(`Nenhum resultado encontrado para "${termo}". Tente buscar por Lanches, Pizza, Japonesa, etc.`);
+ }
+ }
+
+ searchBtn.addEventListener('click', executarBusca);
+ searchInput.addEventListener('keypress', (e) => {
+ if (e.key === 'Enter') executarBusca();
+ });
+
+ function enviarTicket(e) {
+ e.preventDefault();
+ const nome = document.getElementById('ticketName').value;
+ alert(`Obrigado, ${nome}! Seu ticket de suporte foi aberto com sucesso. Entraremos em contato em breve.`);
+ document.getElementById('ticketForm').reset();
+ }
+
+ function toggleDarkMode(enabled) {
+ if (enabled) {
+ document.body.classList.add('dark-mode');
+ localStorage.setItem('theme', 'dark');
+ } else {
+ document.body.classList.remove('dark-mode');
+ localStorage.setItem('theme', 'light');
+ }
+ }
+
+ function salvarPerfil(e) {
+ e.preventDefault();
+ const nome = document.getElementById('profName').value;
+ alert(`Perfil de "${nome}" atualizado com sucesso!`);
+ }
+
+ if (localStorage.getItem('theme') === 'dark') {
+ document.getElementById('darkModeToggle').checked = true;
+ toggleDarkMode(true);
+ }
+ </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Ayfudi - Delivery</title>
+ <style>
+ :root {
+ --bg-body: #f7f7f7;
+ --bg-card: #ffffff;
+ --text-main: #3e3e3e;
+ --text-title: #1f1f1f;
+ --text-sub: #717171;
+ --primary: #ea1d2c;
+ --primary-hover: #c41824;
+ --border-color: #dcdcdc;
+ --shadow: rgba(0, 0, 0, 0.05);
+ }
+
+ body.dark-mode {
+ --bg-body: #121212;
+ --bg-card: #1e1e1e;
+ --text-main: #e0e0e0;
+ --text-title: #ffffff;
+ --text-sub: #a0a0a0;
+ --border-color: #333333;
+ --shadow: rgba(0, 0, 0, 0.5);
+ }
+
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ transition: background-color 0.3s, color 0.3s;
+ }
+
+ body {
+ background-color: var(--bg-body);
+ color: var(--text-main);
+ }
+
+ header {
+ background-color: var(--bg-card);
+ box-shadow: 0 2px 4px var(--shadow);
+ padding: 20px 50px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ position: sticky;
+ top: 0;
+ z-index: 100;
+ }
+
+ .logo {
+ color: var(--primary);
+ font-size: 2rem;
+ font-weight: bold;
+ text-decoration: none;
+ }
+
+ nav a {
+ color: var(--text-sub);
+ text-decoration: none;
+ margin-left: 20px;
+ font-size: 1.4rem;
+ cursor: pointer;
+ }
+
+ nav a:hover, nav a.active {
+ color: var(--primary);
+ }
+
+ .view-section {
+ display: none;
+ }
+
+ .view-section.active {
+ display: block;
+ }
+
+ .hero {
+ background-color: var(--bg-card);
+ text-align: center;
+ padding: 80px 20px;
+ }
+
+ .hero h1 {
+ font-size: 3rem;
+ margin-bottom: 20px;
+ color: var(--text-title);
+ }
+
+ .hero p {
+ font-size: 1.2rem;
+ color: var(--text-sub);
+ margin-bottom: 40px;
+ }
+
+ .search-container {
+ display: flex;
+ justify-content: center;
+ max-width: 600px;
+ margin: 0 auto;
+ }
+
+ .search-container input {
+ width: 100%;
+ padding: 15px 20px;
+ font-size: 1rem;
+ border: 1px solid var(--border-color);
+ background-color: var(--bg-card);
+ color: var(--text-main);
+ border-radius: 8px 0 0 8px;
+ outline: none;
+ }
+
+ .search-container button {
+ background-color: var(--primary);
+ color: white;
+ border: none;
+ padding: 0 30px;
+ font-size: 1rem;
+ font-weight: bold;
+ border-radius: 0 8px 8px 0;
+ cursor: pointer;
+ }
+
+ .search-container button:hover {
+ background-color: var(--primary-hover);
+ }
+
+ .categories, .container-page {
+ max-width: 1200px;
+ margin: 40px auto;
+ padding: 0 20px;
+ }
+
+ .categories h2, .page-title {
+ margin-bottom: 30px;
+ font-size: 1.8rem;
+ color: var(--text-title);
+ }
+
+ .grid-categories {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+ gap: 20px;
+ }
+
+ .category-card {
+ background-color: var(--bg-card);
+ padding: 30px 20px;
+ text-align: center;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ cursor: pointer;
+ border: 2px solid transparent;
+ }
+
+ .category-card:hover, .category-card.active {
+ transform: translateY(-5px);
+ border-color: var(--primary);
+ }
+
+ .category-card img {
+ width: 80px;
+ height: 80px;
+ margin-bottom: 15px;
+ object-fit: contain;
+ }
+
+ .category-card p {
+ font-weight: 600;
+ color: var(--text-main);
+ }
+
+ .catalog-section {
+ max-width: 1200px;
+ margin: 40px auto 80px;
+ padding: 0 20px;
+ display: none;
+ }
+
+ .grid-products {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+ gap: 25px;
+ }
+
+ .product-card {
+ background-color: var(--bg-card);
+ border-radius: 12px;
+ padding: 20px;
+ box-shadow: 0 4px 6px var(--shadow);
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ }
+
+ .product-card h3 {
+ font-size: 1.2rem;
+ margin-bottom: 8px;
+ color: var(--text-title);
+ }
+
+ .product-card p {
+ color: var(--text-sub);
+ font-size: 0.9rem;
+ margin-bottom: 15px;
+ }
+
+ .product-bottom {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 10px;
+ }
+
+ .product-price {
+ font-size: 1.1rem;
+ font-weight: bold;
+ color: var(--primary);
+ }
+
+ .btn-add, .btn-submit {
+ background-color: var(--primary);
+ color: white;
+ border: none;
+ padding: 10px 20px;
+ border-radius: 6px;
+ font-weight: bold;
+ cursor: pointer;
+ }
+
+ .btn-add:hover, .btn-submit:hover {
+ background-color: var(--primary-hover);
+ }
+
+ .faq-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ gap: 20px;
+ margin-bottom: 40px;
+ }
+
+ .faq-card {
+ background-color: var(--bg-card);
+ padding: 25px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ }
+
+ .faq-card h3 {
+ color: var(--primary);
+ margin-bottom: 10px;
+ }
+
+ .ticket-section {
+ background-color: var(--bg-card);
+ padding: 30px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ max-width: 700px;
+ margin: 0 auto;
+ }
+
+ .form-group {
+ margin-bottom: 20px;
+ }
+
+ .form-group label {
+ display: block;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: var(--text-title);
+ }
+
+ .form-group input, .form-group textarea, .form-group select {
+ width: 100%;
+ padding: 12px;
+ border: 1px solid var(--border-color);
+ border-radius: 6px;
+ background-color: var(--bg-body);
+ color: var(--text-main);
+ outline: none;
+ }
+
+ .partners-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+ gap: 25px;
+ }
+
+ .partner-card {
+ background-color: var(--bg-card);
+ padding: 25px;
+ border-radius: 12px;
+ text-align: center;
+ box-shadow: 0 4px 6px var(--shadow);
+ border: 1px solid var(--border-color);
+ }
+
+ .partner-card img {
+ width: 100px;
+ height: 100px;
+ object-fit: contain;
+ margin-bottom: 15px;
+ border-radius: 50%;
+ background: #fff;
+ padding: 10px;
+ }
+
+ .partner-card h3 {
+ color: var(--text-title);
+ margin-bottom: 5px;
+ }
+
+ .partner-card span {
+ color: var(--text-sub);
+ font-size: 0.85rem;
+ }
+
+ .settings-card {
+ background-color: var(--bg-card);
+ padding: 30px;
+ border-radius: 12px;
+ box-shadow: 0 4px 6px var(--shadow);
+ max-width: 600px;
+ margin: 0 auto 30px;
+ }
+
+ .toggle-container {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+
+ .switch {
+ position: relative;
+ display: inline-block;
+ width: 50px;
+ height: 26px;
+ }
+
+ .switch input {
+ opacity: 0;
+ width: 0;
+ height: 0;
+ }
+
+ .slider {
+ position: absolute;
+ cursor: pointer;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background-color: #ccc;
+ transition: .4s;
+ border-radius: 34px;
+ }
+
+ .slider:before {
+ position: absolute;
+ content: "";
+ height: 18px;
+ width: 18px;
+ left: 4px;
+ bottom: 4px;
+ background-color: white;
+ transition: .4s;
+ border-radius: 50%;
+ }
+
+ input:checked + .slider {
+ background-color: var(--primary);
+ }
+
+ input:checked + .slider:before {
+ transform: translateX(24px);
+ }
+ </style>
+</head>
+<body>
+
+ <header>
+ <a href="#" class="logo" onclick="switchTab('home')">ayfudi</a>
+ <nav>
+ <a onclick="switchTab('help')" id="nav-help" title="Dúvidas">🤔</a>
+ <a onclick="switchTab('partners')" id="nav-partners" title="Parceiros">🤝</a>
+ <a onclick="switchTab('settings')" id="nav-settings" title="Configurações">⚙️</a>
+ </nav>
+ </header>
+
+ <div id="view-home" class="view-section active">
+ <section class="hero">
+ <h1>O que sua fome pede?</h1>
+ <p>Aqui nós não vendemos somente produtos, vendemos felicidade em cada mordida.</p>
+ <div class="search-container">
+ <input type="text" id="searchInput" placeholder="Busque aqui...">
+ <button id="searchBtn">Buscar</button>
+ </div>
+ </section>
+
+ <section class="categories">
+ <h2>Categorias em destaque</h2>
+ <div class="grid-categories">
+ <div class="category-card" data-category="Lanches">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ22dibEbsDjdcr7NC-EdoN5CWEi0SyKs5b0S6lBNZg5A&s=10" alt="Lanches">
+ <p>Lanches</p>
+ </div>
+ <div class="category-card" data-category="Pizza">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQrrG9zHLNZX1DLKN4ETMzL4woxvtuaKfVFExuI22piA&s=10" alt="Pizza">
+ <p>Pizza</p>
+ </div>
+ <div class="category-card" data-category="Japonesa">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8qv5gXIn9mogX_tpv8kiXMyK6DSNu26NiDuP6nXIPLw&s=10" alt="Japonesa">
+ <p>Japonesa</p>
+ </div>
+ <div class="category-card" data-category="Sobremesas">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREFlY1uuYLlVUI5i3JqfU-eMQmuBRMtQhkOaM6HcpPZw&s=10" alt="Sobremesas">
+ <p>Sobremesas</p>
+ </div>
+ <div class="category-card" data-category="Mexicana">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJkOS9PzmyQ1mSvuchToGwXLyck_ZmT8WuXvpmiVhYHw&s=10" alt="Mexicana">
+ <p>Mexicana</p>
+ </div>
+ </div>
+ </section>
+
+ <section class="catalog-section" id="catalogSection">
+ <h2 class="catalog-title" id="catalogTitle" style="color: var(--text-title); margin-bottom: 20px;">Opções disponíveis</h2>
+ <div class="grid-products" id="productGrid"></div>
+ </section>
+ </div>
+
+ <div id="view-help" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Central de Ajuda & Como Funciona</h2>
+ 
+ <div class="faq-grid">
+ <div class="faq-card">
+ <h3>1. Escolha o que comer</h3>
+ <p>Assim como no iFood, navegue pelas categorias na página inicial ou use a barra de busca para encontrar seus pratos e restaurantes favoritos.</p>
+ </div>
+ <div class="faq-card">
+ <h3>2. Adicione ao Carrinho</h3>
+ <p>Selecione os itens desejados, confira os detalhes do pedido e clique no botão "Adicionar" para salvar no seu carrinho virtual.</p>
+ </div>
+ <div class="faq-card">
+ <h3>3. Acompanhe a Entrega</h3>
+ <p>Após confirmar o pagamento no checkout, seu pedido é enviado ao restaurante parceiro e entregue diretamente no seu endereço cadastrado.</p>
+ </div>
+ </div>
+
+ <div class="ticket-section">
+ <h2 style="color: var(--text-title); margin-bottom: 20px;">Criar Ticket de Suporte / Reportar Problema</h2>
+ <form id="ticketForm" onsubmit="enviarTicket(event)">
+ <div class="form-group">
+ <label>Nome Completo</label>
+ <input type="text" id="ticketName" required placeholder="Digite seu nome">
+ </div>
+ <div class="form-group">
+ <label>E-mail</label>
+ <input type="email" id="ticketEmail" required placeholder="seu@email.com">
+ </div>
+ <div class="form-group">
+ <label>Assunto</label>
+ <select id="ticketSubject">
+ <option>Dúvida sobre pedido</option>
+ <option>Problema com pagamento</option>
+ <option>Reportar erro no site</option>
+ <option>Sugestão ou reclamação</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Mensagem</label>
+ <textarea id="ticketMessage" rows="4" required placeholder="Descreva detalhadamente sua dúvida ou problema..."></textarea>
+ </div>
+ <button type="submit" class="btn-submit">Enviar Ticket</button>
+ </form>
+ </div>
+ </div>
+ </div>
+
+ <div id="view-partners" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Nossos Parceiros Oficiais</h2>
+ <div class="partners-grid">
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpMFDa0a-Kh8NZ7m_37i_gWYI75DCwZ_g79qvBGx4tXA&s=10" alt="Supermercado Rio Verde">
+ <h3>Supermercado Rio Verde</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA-lGE-t3J0KTjETgO1AyQ9nwsaLz7MHMYJK2ZLIhjeA&s=10" alt="Supermercado Califórnia">
+ <h3>Supermercado Califórnia</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCyW7ZDhoqOOFLo6XC7dd9Wx4rvIJ2JENf_cmx_U1qDA&s=10" alt="Supermercado Carrefour">
+ <h3>Supermercado Carrefour</h3>
+ <span>Supermercados</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxmMuqBzIo8BxZv1hg1PBUJRGltfDbNHZi5ultbBhKuw&s=10" alt="Coca-Cola">
+ <h3>Coca-Cola</h3>
+ <span>Franquia de bebidas</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmxCuH-tObEzSxo2a_9uZWHQQHscSWjuhAYzZA7sKhrQ&s" alt="Burguer King">
+ <h3>Burguer King</h3>
+ <span>Hamburguerias</span>
+ </div>
+ <div class="partner-card">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVOKUyqtgxbvgwMu32xWesyJsz3wV7Lt8yTrVb0Cc-BQ&s=10" alt="Habibi's">
+ <h3>Habib's</h3>
+ <span>Esfihas e Pizzas</span>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div id="view-settings" class="view-section">
+ <div class="container-page">
+ <h2 class="page-title">Configurações</h2>
+
+ <div class="settings-card">
+ <h3 style="color: var(--text-title); margin-bottom: 15px;">Aparência</h3>
+ <div class="toggle-container">
+ <span style="color: var(--text-main); font-weight: 500;">Modo Escuro</span>
+ <label class="switch">
+ <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)">
+ <span class="slider"></span>
+ </label>
+ </div>
+ </div>
+
+ <div class="settings-card">
+ <h3 style="color: var(--text-title); margin-bottom: 20px;">Perfil do Usuário</h3>
+ <form id="profileForm" onsubmit="salvarPerfil(event)">
+ <div class="form-group">
+ <label>Nome do Usuário</label>
+ <input type="text" id="profName" value="Cliente Ayfudi">
+ </div>
+ <div class="form-group">
+ <label>E-mail</label>
+ <input type="email" id="profEmail" value="cliente@email.com">
+ </div>
+ <div class="form-group">
+ <label>Endereço de Entrega</label>
+ <input type="text" id="profAddress" value="Rua das Flores, 123 - Centro">
+ </div>
+ <button type="submit" class="btn-submit">Salvar Perfil</button>
+ </form>
+ </div>
+ </div>
+ </div>
+
+ <script>
+ const catalogos = {
+ 'Lanches': [
+ { nome: 'X-Burguer Clássico', preco: 'R$ 24,90', desc: 'Pão brioche, carne artesanal 180g, queijo cheddar e molho especial.' },
+ { nome: 'Smash Bacon', preco: 'R$ 28,50', desc: 'Duas carnes smash 90g, queijo prato, bacon crocante e maionese da casa.' },
+ { nome: 'Chicken Crispy', preco: 'R$ 22,00', desc: 'Frango empanado super crocante, alface, tomate e molho honey mustard.' }
+ ],
+ 'Pizza': [
+ { nome: 'Pizza Calabresa', preco: 'R$ 44,90', desc: 'Molho de tomate artesanal, muçarela, calabresa fatiada e cebola.' },
+ { nome: 'Pizza 4 Queijos', preco: 'R$ 49,90', desc: 'Muçarela, gorgonzola, provolone e catupiry original.' },
+ { nome: 'Pizza Frango com Catupiry', preco: 'R$ 46,00', desc: 'Frango desfiado temperado e coberto com catupiry.' }
+ ],
+ 'Japonesa': [
+ { nome: 'Combo Sushi (20 Peças)', preco: 'R$ 64,90', desc: '10 Hossomakis, 5 Niguiris de Salmão e 5 Sashimis frescos.' },
+ { nome: 'Temaki Salmão Completo', preco: 'R$ 29,90', desc: 'Cone de alga recheado com salmão, cream cheese e cebolinha.' }
+ ],
+ 'Sobremesas': [
+ { nome: 'Grand Gateau', preco: 'R$ 22,90', desc: 'Bolo quente de chocolate com picolé de baunilha e calda de brigadeiro.' },
+ { nome: 'Churros de Doce de Leite', preco: 'R$ 16,00', desc: '6 mini churros crocantes recheados com doce de leite caseiro.' }
+ ],
+ 'Mexicana': [
+ { nome: 'Tacos de Carne (3 un)', preco: 'R$ 31,90', desc: 'Tortillas de milho, carne moída temperada, queijo e guacamole.' },
+ { nome: 'Burrito Supremo', preco: 'R$ 34,50', desc: 'Tortilla de trigo grande recheada com feijão mexicano, carne, queijo e pico de gallo.' }
+ ]
+ };
+
+ function switchTab(tab) {
+ document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+ document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+
+ const targetView = document.getElementById(`view-${tab}`);
+ if (targetView) targetView.classList.add('active');
+
+ const targetNav = document.getElementById(`nav-${tab}`);
+ if (targetNav) targetNav.classList.add('active');
+
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+ }
+
+ const categoryCards = document.querySelectorAll('.category-card');
+ const catalogSection = document.getElementById('catalogSection');
+ const catalogTitle = document.getElementById('catalogTitle');
+ const productGrid = document.getElementById('productGrid');
+ const searchInput = document.getElementById('searchInput');
+ const searchBtn = document.getElementById('searchBtn');
+
+ function showProducts(categoria) {
+ const produtos = catalogos[categoria];
+ if (!produtos) return;
+
+ categoryCards.forEach(card => card.classList.remove('active'));
+ const activeCard = Array.from(categoryCards).find(c => c.dataset.category === categoria);
+ if (activeCard) activeCard.classList.add('active');
+
+ catalogTitle.innerText = `Cardápio: ${categoria}`;
+ productGrid.innerHTML = '';
+
+ produtos.forEach(item => {
+ const card = document.createElement('div');
+ card.className = 'product-card';
+ card.innerHTML = `
+ <div>
+ <h3>${item.nome}</h3>
+ <p>${item.desc}</p>
+ </div>
+ <div class="product-bottom">
+ <span class="product-price">${item.preco}</span>
+ <button class="btn-add" onclick="adicionarAoCarrinho('${item.nome}')">Adicionar</button>
+ </div>
+ `;
+ productGrid.appendChild(card);
+ });
+
+ catalogSection.style.display = 'block';
+ catalogSection.scrollIntoView({ behavior: 'smooth' });
+ }
+
+ categoryCards.forEach(card => {
+ card.addEventListener('click', () => {
+ const categoria = card.getAttribute('data-category');
+ showProducts(categoria);
+ });
+ });
+
+ function adicionarAoCarrinho(nomeProduto) {
+ alert(`"${nomeProduto}" foi adicionado ao seu pedido!`);
+ }
+
+ function executarBusca() {
+ const termo = searchInput.value.trim().toLowerCase();
+ if (!termo) {
+ alert('Por favor, digite algo para buscar.');
+ return;
+ }
+
+ const categoriaEncontrada = Object.keys(catalogos).find(cat => cat.toLowerCase().includes(termo));
+
+ if (categoriaEncontrada) {
+ showProducts(categoriaEncontrada);
+ } else {
+ alert(`Nenhum resultado encontrado para "${termo}". Tente buscar por Lanches, Pizza, Japonesa, etc.`);
+ }
+ }
+
+ searchBtn.addEventListener('click', executarBusca);
+ searchInput.addEventListener('keypress', (e) => {
+ if (e.key === 'Enter') executarBusca();
+ });
+
+ function enviarTicket(e) {
+ e.preventDefault();
+ const nome = document.getElementById('ticketName').value;
+ alert(`Obrigado, ${nome}! Seu ticket de suporte foi aberto com sucesso. Entraremos em contato em breve.`);
+ document.getElementById('ticketForm').reset();
+ }
+
+ function toggleDarkMode(enabled) {
+ if (enabled) {
+ document.body.classList.add('dark-mode');
+ localStorage.setItem('theme', 'dark');
+ } else {
+ document.body.classList.remove('dark-mode');
+ localStorage.setItem('theme', 'light');
+ }
+ }
+
+ function salvarPerfil(e) {
+ e.preventDefault();
+ const nome = document.getElementById('profName').value;
+ alert(`Perfil de "${nome}" atualizado com sucesso!`);
+ }
+
+ if (localStorage.getItem('theme') === 'dark') {
+ document.getElementById('darkModeToggle').checked = true;
+ toggleDarkMode(true);
+ }
  </script>
 </body>
 </html>
